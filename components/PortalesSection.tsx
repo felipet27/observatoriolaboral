@@ -2,9 +2,10 @@ import Image from 'next/image'
 import { img } from '@/lib/images'
 
 const logos = [
-  { img: img.logoSenaVerde, alt: 'SENA', href: 'https://www.sena.edu.co', w: 'w-[130px]' },
-  { img: img.logoFondoEmprender, alt: 'Fondo Emprender', href: 'https://www.fondoemprender.com', w: 'w-[410px]' },
-  { img: img.logoApe, alt: 'Agencia Pública de Empleo', href: 'https://ape.sena.edu.co', w: 'w-[335px]' },
+  // En escritorio, proporcionales al ancho (medidas del diseño a 1920px) para que siempre quepan en una fila
+  { img: img.logoSenaVerde, alt: 'SENA', href: 'https://www.sena.edu.co', w: 'w-[130px] lg:w-[min(6.77vw,130px)]' },
+  { img: img.logoFondoEmprender, alt: 'Fondo Emprender', href: 'https://www.fondoemprender.com', w: 'w-[410px] lg:w-[min(21.35vw,410px)]' },
+  { img: img.logoApe, alt: 'Agencia Pública de Empleo', href: 'https://ape.sena.edu.co', w: 'w-[335px] lg:w-[min(17.45vw,335px)]' },
 ]
 
 // z decreciente: la punta de cada bloque se pinta encima del bloque siguiente
@@ -18,10 +19,10 @@ export default function PortalesSection() {
   return (
     <section id="portales" className="bg-white">
       <div className="max-w-olo mx-auto px-4 lg:px-[80px] pt-14 lg:pt-[55px]">
-        <div className="flex flex-wrap items-center justify-center gap-8 lg:gap-0">
+        <div className="flex flex-wrap lg:flex-nowrap items-center justify-center gap-8 lg:gap-0">
           {logos.map((l, i) => (
             <div key={l.alt} className="flex items-center">
-              {i > 0 && <span className="hidden lg:block w-[3px] h-[106px] bg-[#7a7a7a] mx-[120px]" />}
+              {i > 0 && <span className="hidden lg:block w-[3px] h-[min(5.5vw,106px)] bg-[#7a7a7a] mx-[min(6.25vw,120px)]" />}
               <a href={l.href} target="_blank" rel="noopener noreferrer">
                 <Image src={l.img} alt={l.alt} className={`${l.w} max-w-full h-auto`} />
               </a>
