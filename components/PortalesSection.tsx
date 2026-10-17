@@ -7,13 +7,11 @@ const logos = [
   { img: img.logoApe, alt: 'Agencia Pública de Empleo', href: 'https://ape.sena.edu.co', w: 'w-[335px]' },
 ]
 
-// Muesca en flecha hacia la derecha entre bloques
-const notch = 'polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 63%, 6.8% 50%, 0 37%)'
-
+// z decreciente: la punta de cada bloque se pinta encima del bloque siguiente
 const portales = [
-  { label: ['Molestia referente', 'a PQRS'], icon: img.portal1, bg: 'bg-navy', clip: undefined },
-  { label: ['Denuncia por', 'corrupción'], icon: img.portal2, bg: 'bg-lima', clip: notch },
-  { label: ['Transparencia'], icon: img.portal3, bg: 'bg-cyan', clip: notch },
+  { label: ['Molestia referente', 'a PQRS'], icon: img.portal1, bg: 'bg-navy', z: 'z-30' },
+  { label: ['Denuncia por', 'corrupción'], icon: img.portal2, bg: 'bg-lima', z: 'z-20' },
+  { label: ['Transparencia'], icon: img.portal3, bg: 'bg-cyan', z: 'z-10' },
 ]
 
 export default function PortalesSection() {
@@ -36,17 +34,35 @@ export default function PortalesSection() {
       </div>
 
       <div className="grid md:grid-cols-3">
-        {portales.map(({ label, icon, bg, clip }, i) => (
+        {portales.map(({ label, icon, bg, z }, i) => (
           <a
             key={label[0]}
             href="#"
-            className={`${bg} relative flex flex-col items-center justify-center text-white font-bold text-center text-[clamp(1.4rem,2.2vw,2.6rem)] leading-[1.2] h-[300px] lg:h-[366px] ${i > 0 ? 'md:-ml-[44px]' : ''}`}
-            style={clip ? { clipPath: clip } : undefined}
+            className={`${bg} ${z} relative flex items-center gap-5 px-8 h-[132px] text-left text-white font-bold text-[1.35rem] leading-[1.2] md:flex-col md:justify-center md:gap-0 md:px-0 md:text-center md:text-[clamp(1.4rem,2.2vw,2.6rem)] md:h-[300px] lg:h-[366px]`}
           >
-            <Image src={icon} alt="" className="w-[120px] lg:w-[150px] h-auto mb-8" />
-            {label.map((t) => (
-              <span key={t}>{t}</span>
-            ))}
+            {i < portales.length - 1 && (
+              <>
+                {/* Franja de 1px que cubre la unión entre bloques */}
+                <span aria-hidden className="hidden md:block absolute inset-y-0 -right-px w-[2px] bg-inherit" />
+                {/* Punta de flecha sobre el bloque siguiente */}
+                <span
+                  aria-hidden
+                  className="hidden md:block absolute top-1/2 -translate-y-1/2 -right-[44px] w-[45px] h-[26%] bg-inherit [clip-path:polygon(0_0,100%_50%,0_100%)]"
+                />
+                {/* En celular los bloques se apilan: la unión y la flecha apuntan hacia abajo */}
+                <span aria-hidden className="md:hidden absolute inset-x-0 -bottom-px h-[2px] bg-inherit" />
+                <span
+                  aria-hidden
+                  className="md:hidden absolute left-1/2 -translate-x-1/2 -bottom-[26px] w-[64px] h-[27px] bg-inherit [clip-path:polygon(0_0,100%_0,50%_100%)]"
+                />
+              </>
+            )}
+            <Image src={icon} alt="" className="w-[76px] md:w-[120px] lg:w-[150px] h-auto shrink-0 md:mb-8" />
+            <span className="flex flex-col">
+              {label.map((t) => (
+                <span key={t}>{t}</span>
+              ))}
+            </span>
           </a>
         ))}
       </div>
