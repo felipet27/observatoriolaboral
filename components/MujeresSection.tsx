@@ -24,17 +24,8 @@ export default function MujeresSection() {
 
   return (
     <section className="bg-papel-textura">
-      <div className="bg-azul-textura relative overflow-hidden rounded-[40px] lg:rounded-[60px] max-w-olo mx-auto">
-        {/* Letras OLO de fondo */}
-        <div
-          aria-hidden
-          className="absolute inset-x-0 -top-[2%] flex justify-around text-transparent font-medium text-[clamp(10rem,30vw,36rem)] leading-none select-none pointer-events-none"
-          style={{ WebkitTextStroke: '3px rgba(255,255,255,0.08)' }}
-        >
-          <span>O</span>
-          <span>L</span>
-          <span>O</span>
-        </div>
+      {/* Fondo de muro azul con letras OLO, reconstruido desde la maqueta */}
+      <div className="relative overflow-hidden rounded-[40px] lg:rounded-[60px] max-w-olo mx-auto bg-[#00287a] bg-[url('/img/fondo-mujeres.jpg')] bg-cover bg-center">
 
         <div className="embla relative" ref={emblaRef}>
           <div className="embla__container">
