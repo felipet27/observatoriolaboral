@@ -80,7 +80,7 @@ export default function Navbar() {
         }`}
       >
         <div
-          className={`max-w-olo mx-auto px-4 lg:px-10 flex items-center justify-between gap-6 transition-[height] duration-300 ${
+          className={`max-w-olo mx-auto px-4 lg:px-[clamp(24px,2.1vw,40px)] flex items-center justify-between gap-[clamp(16px,1.6vw,32px)] transition-[height] duration-300 ${
             compact ? 'h-[72px] lg:h-[84px]' : 'h-[100px] lg:h-[120px]'
           }`}
         >
@@ -88,38 +88,40 @@ export default function Navbar() {
             <Image
               src={img.logosNav}
               alt="SENA - Observatorio Laboral y Ocupacional"
-              className={`w-auto transition-[height] duration-300 ${compact ? 'h-11 lg:h-[60px]' : 'h-14 lg:h-[84px]'}`}
+              className={`w-auto transition-[height] duration-300 ${
+                compact ? 'h-11 xl:h-[clamp(48px,3.1vw,60px)]' : 'h-14 xl:h-[clamp(62px,4.4vw,84px)]'
+              }`}
               priority
             />
           </a>
 
-          <ul className="hidden xl:flex items-center gap-6 2xl:gap-8">
+          <ul className="hidden xl:flex items-center gap-[clamp(14px,1.55vw,32px)]">
             {navLinks.map((l) => (
               <li key={l.label}>
                 <a
                   href={l.href}
                   aria-current={current === l.href ? 'true' : undefined}
-                  className={`relative flex items-center gap-1 text-[1.15rem] 2xl:text-[1.45rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-1.5 after:h-[3px] after:rounded-full after:bg-lima after:transition-all after:duration-300 ${
+                  className={`relative flex items-center gap-1 whitespace-nowrap text-[clamp(15px,calc(1.25vw-1px),23px)] font-semibold transition-colors after:absolute after:left-0 after:-bottom-1.5 after:h-[3px] after:rounded-full after:bg-lima after:transition-all after:duration-300 ${
                     current === l.href ? 'text-white after:w-full' : 'text-cyan hover:text-white after:w-0'
                   }`}
                 >
                   {l.label}
-                  {l.dropdown && <ChevronDown size={18} strokeWidth={3} aria-hidden />}
+                  {l.dropdown && <ChevronDown className="w-[1em] h-[1em]" strokeWidth={3} aria-hidden />}
                 </a>
               </li>
             ))}
           </ul>
 
-          <div className="hidden xl:flex items-center gap-8 2xl:gap-12">
+          <div className="hidden xl:flex items-center shrink-0 gap-[clamp(16px,2.5vw,48px)]">
             <button
               aria-label="Buscar"
-              className="w-10 h-10 rounded-full bg-cyan flex items-center justify-center text-navy"
+              className="w-[clamp(34px,2.1vw,40px)] aspect-square rounded-full bg-cyan flex items-center justify-center text-navy"
             >
-              <Search size={20} strokeWidth={2.5} className="-scale-x-100" />
+              <Search strokeWidth={2.5} className="w-1/2 h-1/2 -scale-x-100" />
             </button>
             <a
               href="#"
-              className="bg-lima text-navy text-[1.3rem] 2xl:text-[1.6rem] font-medium tracking-[0.12em] rounded-full px-5 py-0.5 hover:brightness-110"
+              className="whitespace-nowrap bg-lima text-navy text-[clamp(17px,calc(1.4vw-1px),25.6px)] font-medium tracking-[0.12em] rounded-full px-[0.8em] py-0.5 hover:brightness-110"
             >
               Intranet
             </a>
