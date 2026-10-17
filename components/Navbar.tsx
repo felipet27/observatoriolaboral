@@ -74,9 +74,8 @@ export default function Navbar() {
       <nav
         ref={navRef}
         aria-label="Principal"
-        // Al compactarse, el margen compensa la altura perdida para que el contenido no salte
-        className={`sticky top-0 z-50 bg-navy transition-[margin,box-shadow] duration-300 ${
-          compact ? 'mb-[28px] lg:mb-[36px] shadow-lg shadow-black/30' : ''
+        className={`sticky top-0 z-50 bg-navy transition-shadow duration-300 ${
+          compact ? 'shadow-lg shadow-black/30' : ''
         }`}
       >
         <div
@@ -165,6 +164,13 @@ export default function Navbar() {
           </div>
         )}
       </nav>
+
+      {/* Al compactarse el menú, este relleno compensa la altura perdida para que el contenido no salte.
+          Es azul (no un margen) para que no asome el fondo blanco al volver a subir. */}
+      <div
+        aria-hidden
+        className={`bg-navy transition-[height] duration-300 ${compact ? 'h-[28px] lg:h-[36px]' : 'h-0'}`}
+      />
     </>
   )
 }
