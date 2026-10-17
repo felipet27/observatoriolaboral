@@ -5,6 +5,7 @@ import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
 import { Play } from 'lucide-react'
 import { img } from '@/lib/images'
+import diseno from '@/public/img/alertas-valle.png'
 
 const alertas = [
   {
@@ -34,8 +35,36 @@ export default function AlertasSection() {
       aria-roledescription="carrusel"
       aria-label="Alertas de proyectos de inversión"
     >
+      {/* Escritorio: diseño oficial, con zonas clicables sobre las flechas y el botón dibujados */}
+      <div className="hidden lg:block relative max-w-olo mx-auto">
+        <h2 className="sr-only">Alertas: proyectos de inversión</h2>
+        <Image
+          src={diseno}
+          alt={`Alertas de proyectos de inversión en ${alertas[0].region}. En 2026, el Observatorio Laboral y Ocupacional SENA ha identificado 376 proyectos de inversión con potencial para la generación de empleo en el país. ${alertas[0].monto} billones de pesos. ${alertas[0].noticia}`}
+          className="block w-full h-auto"
+          sizes="(min-width: 1920px) 1920px, 100vw"
+          quality={90}
+        />
+        <button
+          onClick={prev}
+          aria-label="Anterior"
+          className="absolute left-[2.65%] top-[50%] -translate-y-1/2 w-[3.1%] aspect-square rounded-full hover:bg-white/20 transition-colors"
+        />
+        <button
+          onClick={next}
+          aria-label="Siguiente"
+          className="absolute left-[93.75%] top-[50%] -translate-y-1/2 w-[3.1%] aspect-square rounded-full hover:bg-white/20 transition-colors"
+        />
+        <a
+          href={alertas[0].href}
+          aria-label="Consulta la noticia aquí"
+          className="absolute left-[67.2%] top-[83.1%] w-[24.3%] h-[5.95%] rounded-[0.6vw] hover:bg-white/15 transition-colors"
+        />
+      </div>
+
+      {/* Celular y tableta: versión en HTML */}
       <div
-        className="embla max-w-olo mx-auto focus-visible:outline-offset-[-4px]"
+        className="lg:hidden embla max-w-olo mx-auto focus-visible:outline-offset-[-4px]"
         ref={emblaRef}
         tabIndex={0}
         onKeyDown={onKeyDown}
@@ -128,14 +157,14 @@ export default function AlertasSection() {
       <button
         onClick={prev}
         aria-label="Anterior"
-        className="absolute left-[2.6%] top-[45%] -translate-y-1/2 w-[clamp(36px,3.1vw,60px)] aspect-square rounded-full bg-white text-navy flex items-center justify-center"
+        className="lg:hidden absolute left-[2.6%] top-[45%] -translate-y-1/2 w-[clamp(36px,3.1vw,60px)] aspect-square rounded-full bg-white text-navy flex items-center justify-center"
       >
         <Play className="w-2/5 h-2/5 rotate-180 fill-navy" />
       </button>
       <button
         onClick={next}
         aria-label="Siguiente"
-        className="absolute right-[2.6%] top-[45%] -translate-y-1/2 w-[clamp(36px,3.1vw,60px)] aspect-square rounded-full bg-white text-navy flex items-center justify-center"
+        className="lg:hidden absolute right-[2.6%] top-[45%] -translate-y-1/2 w-[clamp(36px,3.1vw,60px)] aspect-square rounded-full bg-white text-navy flex items-center justify-center"
       >
         <Play className="w-2/5 h-2/5 fill-navy" />
       </button>

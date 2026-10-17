@@ -6,6 +6,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { img } from '@/lib/images'
 import fondoMujeres from '@/public/img/fondo-mujeres.jpg'
+import diseno from '@/public/img/el-dato-mujeres.png'
 
 const datos = [
   {
@@ -32,7 +33,29 @@ export default function MujeresSection() {
 
   return (
     <section className="bg-papel-textura" aria-roledescription="carrusel" aria-label="El dato OLO">
-      <div className="relative overflow-hidden rounded-[40px] lg:rounded-[60px] max-w-olo mx-auto bg-[#00287a]">
+      {/* Escritorio: diseño oficial, con zonas clicables sobre las flechas dibujadas */}
+      <div className="hidden lg:block relative max-w-olo mx-auto">
+        <Image
+          src={diseno}
+          alt="El dato OLO: ¿y entre las mujeres? 67,85% de las certificadas que se reconocen como parte de un grupo étnico son afrocolombianas."
+          className="block w-full h-auto"
+          sizes="(min-width: 1920px) 1920px, 100vw"
+          quality={90}
+        />
+        <button
+          onClick={prev}
+          aria-label="Anterior"
+          className="absolute left-[2.75%] top-[46.3%] -translate-y-1/2 w-[2.7%] aspect-square rounded-full hover:bg-white/20 transition-colors"
+        />
+        <button
+          onClick={next}
+          aria-label="Siguiente"
+          className="absolute left-[94.5%] top-[46.3%] -translate-y-1/2 w-[2.7%] aspect-square rounded-full hover:bg-white/20 transition-colors"
+        />
+      </div>
+
+      {/* Celular y tableta: versión en HTML legible a cualquier ancho */}
+      <div className="lg:hidden relative overflow-hidden rounded-[40px] max-w-olo mx-auto bg-[#00287a]">
         {/* Fondo de muro azul con letras OLO, reconstruido desde la maqueta */}
         <Image
           src={fondoMujeres}

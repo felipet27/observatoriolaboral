@@ -19,29 +19,31 @@ export default function Navbar() {
   const [active, setActive] = useState('#inicio')
   const navRef = useRef<HTMLElement>(null)
 
-  // Menú compacto al bajar
-  useEffect(() => {
-    const onScroll = () => setCompact(window.scrollY > 60)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  // Resalta la sección visible
+  // Menú compacto al bajar y sección activa: la última cuyo inicio ya pasó la mitad de la pantalla
   useEffect(() => {
     const sections = navLinks
       .map((l) => document.querySelector<HTMLElement>(l.href))
       .filter((el): el is HTMLElement => el !== null)
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) setActive(`#${e.target.id}`)
-        })
-      },
-      { rootMargin: '-45% 0px -50% 0px' }
-    )
-    sections.forEach((s) => observer.observe(s))
-    return () => observer.disconnect()
+    let frame = 0
+    const update = () => {
+      frame = 0
+      setCompact(window.scrollY > 60)
+      const middle = window.innerHeight / 2
+      let current = sections[0]
+      for (const s of sections) if (s.getBoundingClientRect().top <= middle) current = s
+      if (current) setActive(`#${current.id}`)
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
   }, [])
 
   // Cierra el menú móvil con Esc o al tocar fuera
