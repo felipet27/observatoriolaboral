@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
-import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
+import { X, ZoomIn } from 'lucide-react'
 import { img } from '@/lib/images'
 
 const slides = [
@@ -50,7 +50,7 @@ export default function DemandaSection() {
   return (
     <section
       id="demanda"
-      className="relative bg-[#e7e3d9]"
+      className="relative overflow-hidden bg-[#e7e3d9]"
       aria-roledescription="carrusel"
       aria-label="La demanda laboral en el territorio"
     >
@@ -90,17 +90,14 @@ export default function DemandaSection() {
       <button
         onClick={prev}
         aria-label="Anterior"
-        className="absolute left-[2.7%] top-[48.1%] -translate-y-1/2 w-[clamp(32px,2.7vw,52px)] aspect-square rounded-full bg-white text-navy flex items-center justify-center shadow"
-      >
-        <ChevronLeft className="w-3/5 h-3/5" />
-      </button>
+        // Zona clicable sobre la flecha dibujada en la infografía
+        className="absolute left-[2.85%] top-[53.1%] -translate-x-1/2 -translate-y-1/2 w-[max(2.8%,36px)] aspect-square rounded-full hover:bg-navy/15 transition-colors"
+      />
       <button
         onClick={next}
         aria-label="Siguiente"
-        className="absolute right-[2.7%] top-[48.1%] -translate-y-1/2 w-[clamp(32px,2.7vw,52px)] aspect-square rounded-full bg-white text-navy flex items-center justify-center shadow"
-      >
-        <ChevronRight className="w-3/5 h-3/5" />
-      </button>
+        className="absolute left-[97.1%] top-[53.1%] -translate-x-1/2 -translate-y-1/2 w-[max(2.8%,36px)] aspect-square rounded-full hover:bg-navy/15 transition-colors"
+      />
 
       {zoom !== null && <Visor slide={slides[zoom]} onClose={() => setZoom(null)} />}
     </section>

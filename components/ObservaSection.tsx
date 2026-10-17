@@ -5,7 +5,7 @@ import { img } from '@/lib/images'
 const cards = [
   {
     img: img.observa1,
-    alt: 'Monitoreo del mercado: el Observatorio Laboral y Ocupacional analiza',
+    alt: 'Monitoreo del mercado: el Observatorio Laboral y Ocupacional analiza, a partir de la oferta y la demanda por ocupaciones, con el fin de identificar tendencias y brechas',
     href: '#demanda',
   },
   {
@@ -44,11 +44,11 @@ export default function ObservaSection() {
       />
 
       <div className="max-w-[1506px] mx-auto px-4 mt-12 lg:mt-14 grid sm:grid-cols-3 gap-6 lg:gap-[67px]">
-        {cards.map((c, i) => (
+        {cards.map((c) => (
           <a
             key={c.href}
             href={c.href}
-            className="cq relative block transition-transform hover:-translate-y-1"
+            className="relative block transition-transform hover:-translate-y-1"
           >
             <Image
               src={c.img}
@@ -57,13 +57,6 @@ export default function ObservaSection() {
               sizes="(min-width: 1536px) 458px, (min-width: 640px) 31vw, 92vw"
               quality={90}
             />
-            {i === 0 && (
-              <p className="absolute left-[9.6%] top-[49.2%] w-[60%] text-navy text-[4.5cqw] leading-[1.08]">
-                el comportamiento de la <b className="font-extrabold">oferta y demanda</b> de
-                ocupaciones en las <b className="font-extrabold">regiones y sectores</b>{' '}
-                <b className="font-extrabold">económicos.</b>
-              </p>
-            )}
           </a>
         ))}
       </div>

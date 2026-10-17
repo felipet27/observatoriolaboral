@@ -89,8 +89,3 @@ section[id] {
   flex: 0 0 100%;
   min-width: 0;
 }
-
-/* Permite tamaños relativos al ancho de la tarjeta (cqw) */
-.cq {
-  container-type: inline-size;
-}

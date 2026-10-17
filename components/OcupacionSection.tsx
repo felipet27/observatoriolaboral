@@ -2,13 +2,20 @@
 
 import Image from 'next/image'
 import { Search } from 'lucide-react'
-import { img } from '@/lib/images'
+import fondo from '@/public/img/ocupacion-fondo.png'
 
 export default function OcupacionSection() {
   return (
-    <section id="ocupacion" className="bg-papel-textura pt-14 lg:pt-16 pb-10">
-      <div className="max-w-olo mx-auto px-4 lg:px-[90px] grid lg:grid-cols-[minmax(0,1030px)_1fr] gap-10 items-center">
-        <div>
+    <section id="ocupacion" className="bg-papel-textura relative overflow-hidden pt-14 lg:pt-16 pb-10">
+      <div className="relative max-w-olo mx-auto">
+        {/* Foto difuminada con el logo del Observatorio */}
+        <Image
+          src={fondo}
+          alt="Observatorio Laboral y Ocupacional"
+          className="hidden lg:block absolute right-0 -top-16 w-[41.75%] h-auto pointer-events-none select-none"
+          sizes="(min-width: 1920px) 800px, 42vw"
+        />
+        <div className="relative px-4 lg:px-0 lg:ml-[4.75%] lg:w-[53.5%] lg:min-w-[640px]">
           <p className="text-navy font-bold text-[clamp(2rem,3.3vw,3.9rem)] leading-none pl-1">
             ¿Sabes qué es una
           </p>
@@ -21,7 +28,7 @@ export default function OcupacionSection() {
             independientemente del lugar o tiempo donde se desarrollen.
           </p>
 
-          <div className="mt-12 bg-navy rounded-[28px] px-8 lg:pl-[50px] lg:pr-8 py-8 lg:py-9 grid md:grid-cols-[1fr_minmax(0,445px)] gap-6 items-center">
+          <div className="mt-12 bg-navy rounded-[28px] px-8 lg:pl-[50px] lg:pr-8 py-8 lg:py-9 grid md:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] gap-6 items-center">
             <h3 className="text-white font-semibold text-[clamp(1.9rem,2.9vw,3.4rem)] leading-[1.02]">
               Buscado
               <br />
@@ -30,8 +37,8 @@ export default function OcupacionSection() {
               Colombianas
             </h3>
             <div>
-              <p className="text-cyan text-[1.2rem] leading-[1.15] mb-6">
-                Accede a la clasificación de ocupaciones y consulta su descripción, funciones y perfiles.
+              <p className="text-cyan text-[clamp(1.05rem,1.15vw,1.4rem)] leading-[1.2] mb-6">
+                Conozca las ocupaciones de Colombia, según el sector de desempeño y nivel de cualificación.
               </p>
               <form className="relative" onSubmit={(e) => e.preventDefault()}>
                 <input
@@ -48,14 +55,6 @@ export default function OcupacionSection() {
               </form>
             </div>
           </div>
-        </div>
-
-        <div className="hidden lg:flex justify-end xl:pr-[150px]">
-          <Image
-            src={img.oloLogoGrande}
-            alt="Observatorio Laboral y Ocupacional"
-            className="w-[300px] h-auto"
-          />
         </div>
       </div>
     </section>

@@ -3,7 +3,6 @@ import govCo from '@/public/img/gov-co.png'
 import govCoFooter from '@/public/img/gov-co-footer.png'
 import logosNav from '@/public/img/logos-nav.png'
 import hero from '@/public/img/hero.jpg'
-import oloLogoGrande from '@/public/img/olo-logo-grande.png'
 import observa1 from '@/public/img/observa-1.jpg'
 import observa2 from '@/public/img/observa-2.jpg'
 import observa3 from '@/public/img/observa-3.jpg'
@@ -37,7 +36,6 @@ export const img = {
   govCoFooter,
   logosNav,
   hero,
-  oloLogoGrande,
   observa1,
   observa2,
   observa3,
