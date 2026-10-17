@@ -16,7 +16,7 @@ module.exports = {
         rey: '#001e7f',
       },
       fontFamily: {
-        sans: ['"Work Sans"', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-work-sans)', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
         olo: '1920px',

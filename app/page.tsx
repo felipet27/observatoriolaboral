@@ -10,22 +10,26 @@ import DatosSection from '@/components/DatosSection'
 import AlertasSection from '@/components/AlertasSection'
 import PortalesSection from '@/components/PortalesSection'
 import Footer from '@/components/Footer'
+import BackToTop from '@/components/BackToTop'
 
 export default function Home() {
   return (
-    <main>
+    <>
       <Navbar />
-      <HeroCarousel />
-      <OcupacionSection />
-      <ObservaSection />
-      <DemandaSection />
-      <ServiciosSection />
-      <MujeresSection />
-      <MiradaSection />
-      <DatosSection />
-      <AlertasSection />
-      <PortalesSection />
+      <main id="contenido" tabIndex={-1} className="outline-none">
+        <HeroCarousel />
+        <OcupacionSection />
+        <ObservaSection />
+        <DemandaSection />
+        <ServiciosSection />
+        <MujeresSection />
+        <MiradaSection />
+        <DatosSection />
+        <AlertasSection />
+        <PortalesSection />
+      </main>
       <Footer />
-    </main>
+      <BackToTop />
+    </>
   )
 }

@@ -1,13 +1,15 @@
 'use client'
 
 import { useCallback } from 'react'
+import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
 import { Play } from 'lucide-react'
+import { img } from '@/lib/images'
 
 const alertas = [
   {
     region: 'Valle del Cauca',
-    mapa: '/img/mapa-colombia.jpg',
+    mapa: img.mapaColombia,
     monto: '$4.9',
     noticia:
       'Inicia construcción de obra clave en la vía alterna a Buenaventura: plan será clave para el Valle del Cauca. Este proyecto presenta un avance de 32,59%, y según la ANI, beneficiaría a cerca de tres millones de personas en Valle del Cauca.',
@@ -20,9 +22,24 @@ export default function AlertasSection() {
   const prev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
   const next = useCallback(() => emblaApi?.scrollNext(), [emblaApi])
 
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') prev()
+    if (e.key === 'ArrowRight') next()
+  }
+
   return (
-    <section id="alertas" className="bg-navy relative overflow-hidden">
-      <div className="embla max-w-olo mx-auto" ref={emblaRef}>
+    <section
+      id="alertas"
+      className="bg-navy relative overflow-hidden"
+      aria-roledescription="carrusel"
+      aria-label="Alertas de proyectos de inversión"
+    >
+      <div
+        className="embla max-w-olo mx-auto focus-visible:outline-offset-[-4px]"
+        ref={emblaRef}
+        tabIndex={0}
+        onKeyDown={onKeyDown}
+      >
         <div className="embla__container">
           {alertas.map((a) => (
             <div className="embla__slide relative" key={a.region}>
@@ -43,8 +60,9 @@ export default function AlertasSection() {
                     <span className="w-1 h-10 bg-cyan" />
                     {a.region}
                   </p>
-                  <img
+                  <Image
                     src={a.mapa}
+                    sizes="(min-width: 1024px) 590px, 85vw"
                     alt={`Mapa de Colombia con ${a.region} resaltado`}
                     className="mt-10 w-full max-w-[590px] h-auto"
                   />
@@ -65,16 +83,16 @@ export default function AlertasSection() {
                       En 2026, el Observatorio Laboral y Ocupacional SENA, ha identificado 376
                       proyectos de inversión, con potencial para la generación de empleo en el país.
                     </p>
-                    <img
-                      src="/img/flecha-2.png"
+                    <Image
+                      src={img.flecha2}
                       alt=""
                       className="hidden lg:block w-[120px] h-[120px] mt-6 self-start"
                     />
                   </div>
 
                   <div className="relative mt-6 flex justify-end items-center gap-6">
-                    <img
-                      src="/img/flecha-1.png"
+                    <Image
+                      src={img.flecha1}
                       alt=""
                       className="hidden lg:block absolute left-[-15px] top-[10px] w-[120px] h-[120px]"
                     />

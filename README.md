@@ -76,12 +76,6 @@ npm run lint    # revisa el código
 
 ---
 
-## Despliegue
-
-El proyecto está preparado para desplegarse en [Vercel](https://vercel.com/): al importar el repositorio se detecta Next.js automáticamente y no se necesita configuración adicional. Cada cambio publicado en la rama `main` genera un nuevo despliegue.
-
----
-
 ## Créditos
 
 Contenido, cifras, publicaciones e identidad visual: **Observatorio Laboral y Ocupacional — SENA**. Los logotipos del SENA, Fondo Emprender, la Agencia Pública de Empleo, el Ministerio del Trabajo y GOV.CO pertenecen a sus respectivas entidades y se usan únicamente con fines de identificación institucional.

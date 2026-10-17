@@ -1,8 +1,11 @@
 'use client'
 
 import { useCallback } from 'react'
+import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { img } from '@/lib/images'
+import fondoMujeres from '@/public/img/fondo-mujeres.jpg'
 
 const datos = [
   {
@@ -22,22 +25,35 @@ export default function MujeresSection() {
   const prev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
   const next = useCallback(() => emblaApi?.scrollNext(), [emblaApi])
 
-  return (
-    <section className="bg-papel-textura">
-      {/* Fondo de muro azul con letras OLO, reconstruido desde la maqueta */}
-      <div className="relative overflow-hidden rounded-[40px] lg:rounded-[60px] max-w-olo mx-auto bg-[#00287a] bg-[url('/img/fondo-mujeres.jpg')] bg-cover bg-center">
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') prev()
+    if (e.key === 'ArrowRight') next()
+  }
 
-        <div className="embla relative" ref={emblaRef}>
+  return (
+    <section className="bg-papel-textura" aria-roledescription="carrusel" aria-label="El dato OLO">
+      <div className="relative overflow-hidden rounded-[40px] lg:rounded-[60px] max-w-olo mx-auto bg-[#00287a]">
+        {/* Fondo de muro azul con letras OLO, reconstruido desde la maqueta */}
+        <Image
+          src={fondoMujeres}
+          alt=""
+          fill
+          sizes="(min-width: 1920px) 1920px, 100vw"
+          className="object-cover"
+          placeholder="blur"
+        />
+
+        <div className="embla relative focus-visible:outline-offset-[-4px]" ref={emblaRef} tabIndex={0} onKeyDown={onKeyDown}>
           <div className="embla__container">
             {datos.map((d) => (
               <div className="embla__slide" key={d.cifra}>
                 <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-8 lg:gap-[min(2.7vw,52px)] px-16 lg:px-[7.5%] pt-12 lg:pt-[min(9.3vw,178px)] pb-14 lg:pb-[min(7.7vw,148px)]">
                   {/* El dato OLO */}
                   <div className="relative lg:mt-[min(5.8vw,112px)] shrink-0 text-right">
-                    <img
-                      src="/img/icono-dato.png"
+                    <Image
+                      src={img.iconoDato}
                       alt=""
-                      className="absolute -top-[78px] right-[-30px] w-[110px]"
+                      className="absolute -top-[78px] right-[-30px] w-[110px] h-auto"
                     />
                     <p className="relative bg-cyan text-navy font-bold text-[clamp(2.2rem,3.4vw,4rem)] leading-none px-2 py-1">
                       EL DATO:
@@ -47,10 +63,11 @@ export default function MujeresSection() {
                     </p>
                   </div>
 
-                  <img
-                    src="/img/mujer-m.jpg"
+                  <Image
+                    src={img.mujerM}
                     alt="Ilustración de una mujer dentro de la letra M"
                     className="w-[260px] lg:w-[min(22.8vw,438px)] h-auto shrink-0"
+                    sizes="(min-width: 1024px) 23vw, 260px"
                   />
 
                   <div className="text-white text-center lg:text-left lg:pt-[min(1.9vw,37px)]">

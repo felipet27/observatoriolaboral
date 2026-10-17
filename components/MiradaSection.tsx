@@ -1,9 +1,11 @@
+import Image from 'next/image'
 import { ArrowDown } from 'lucide-react'
+import { img } from '@/lib/images'
 
 const publicaciones = [
-  { img: '/img/pub-1.jpg', alt: 'OLO: El rostro de la esperanza - Boletín vinculación víctimas', href: '#' },
-  { img: '/img/pub-2.jpg', alt: 'Estas habilidades obtuvieron una calificación superior a 4 sobre 5', href: '#' },
-  { img: '/img/pub-3.jpg', alt: 'Pensamiento independiente', href: '#' },
+  { img: img.pub1, alt: 'OLO: El rostro de la esperanza - Boletín vinculación víctimas', href: '#' },
+  { img: img.pub2, alt: 'Estas habilidades obtuvieron una calificación superior a 4 sobre 5', href: '#' },
+  { img: img.pub3, alt: 'Pensamiento independiente', href: '#' },
 ]
 
 // Medidas proporcionales al diseño de 1920px para conservar la composición en cualquier ancho
@@ -19,8 +21,9 @@ export default function MiradaSection() {
           SENA
         </span>
 
-        <img
-          src="/img/revista.png"
+        <Image
+          src={img.revista}
+          sizes="(min-width: 1920px) 755px, (min-width: 1024px) 40vw, 80vw"
           alt="Revista Mirada OLO: Vinculación de Egresados 2023-2, Enfoque Diferencial e Interseccional"
           className="w-[80%] max-w-[560px] mx-auto mb-10 lg:mb-0 lg:max-w-none lg:absolute lg:left-[4.7%] lg:top-[min(7.1vw,136px)] lg:w-[39.3%] h-auto"
         />
@@ -43,8 +46,14 @@ export default function MiradaSection() {
 
           <div className="mt-[min(1.8vw,35px)] lg:ml-[1.6%] lg:w-[93.5%] border-2 border-navy rounded-[min(2vw,36px)] px-[6%] py-[min(1.3vw,24px)] grid grid-cols-3 gap-[6.5%]">
             {publicaciones.map((p) => (
-              <div key={p.img} className="flex flex-col items-center">
-                <img src={p.img} alt={p.alt} className="w-full h-auto rounded-md" />
+              <div key={p.alt} className="flex flex-col items-center">
+                <Image
+                  src={p.img}
+                  alt={p.alt}
+                  className="w-full h-auto rounded-md"
+                  sizes="(min-width: 1920px) 233px, (min-width: 1024px) 13vw, 28vw"
+                  quality={85}
+                />
                 <a href={p.href} className="mt-[6%] flex items-center gap-[6%] w-full justify-center group">
                   <span className="w-[clamp(18px,1.5vw,28px)] aspect-square shrink-0 rounded-full bg-navy text-white flex items-center justify-center">
                     <ArrowDown className="w-1/2 h-1/2" strokeWidth={3} />

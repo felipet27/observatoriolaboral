@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import { img } from '@/lib/images'
+
 const redes = [
   'X @SENACOMUNICA',
   'Instagram @SENACOMUNICA',
@@ -28,8 +31,8 @@ export default function Footer() {
         <div className="max-w-[1118px] mx-auto bg-white rounded-md shadow-[0_0_12px_rgba(0,0,0,0.18)] px-6 lg:px-[26px] pt-8 pb-5 text-navy">
           <div className="flex justify-between gap-6">
             <div>
-              <img
-                src="/img/footer-logos.png"
+              <Image
+                src={img.footerLogos}
                 alt="SENA - Observatorio Laboral y Ocupacional"
                 className="h-[72px] w-auto -ml-2"
               />
@@ -44,8 +47,8 @@ export default function Footer() {
                 Conozca aquí los puntos de atención
               </a>
             </div>
-            <img
-              src="/img/logo-trabajo.png"
+            <Image
+              src={img.logoTrabajo}
               alt="Ministerio del Trabajo"
               className="hidden md:block w-[118px] h-auto self-start mt-[72px] mr-[40px]"
             />
@@ -75,13 +78,13 @@ export default function Footer() {
           </dl>
 
           <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-            <img
-              src="/img/footer-redes.png"
+            <Image
+              src={img.footerRedes}
               alt={redes.join(' ')}
               className="w-[737px] max-w-full h-auto"
             />
-            <img
-              src="/img/certificaciones.png"
+            <Image
+              src={img.certificaciones}
               alt="Certificaciones ICONTEC e IQNET"
               className="h-[50px] w-auto"
             />
@@ -101,7 +104,7 @@ export default function Footer() {
 
       <div className="relative bg-gov h-[38px] flex items-center">
         <div className="max-w-[1118px] w-full mx-auto px-4 lg:px-0">
-          <img src="/img/gov-co-footer.png" alt="gov.co" className="h-[30px] w-auto" />
+          <Image src={img.govCoFooter} alt="gov.co" className="h-[30px] w-auto" />
         </div>
       </div>
     </footer>

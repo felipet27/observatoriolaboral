@@ -4,7 +4,6 @@
 # Next.js
 /.next/
 /out/
-next-env.d.ts
 *.tsbuildinfo
 
 # producción

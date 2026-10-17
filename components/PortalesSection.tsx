@@ -1,16 +1,19 @@
+import Image from 'next/image'
+import { img } from '@/lib/images'
+
 const logos = [
-  { img: '/img/logo-sena-verde.png', alt: 'SENA', href: 'https://www.sena.edu.co', w: 'w-[130px]' },
-  { img: '/img/logo-fondo-emprender.png', alt: 'Fondo Emprender', href: 'https://www.fondoemprender.com', w: 'w-[410px]' },
-  { img: '/img/logo-ape.png', alt: 'Agencia Pública de Empleo', href: 'https://ape.sena.edu.co', w: 'w-[335px]' },
+  { img: img.logoSenaVerde, alt: 'SENA', href: 'https://www.sena.edu.co', w: 'w-[130px]' },
+  { img: img.logoFondoEmprender, alt: 'Fondo Emprender', href: 'https://www.fondoemprender.com', w: 'w-[410px]' },
+  { img: img.logoApe, alt: 'Agencia Pública de Empleo', href: 'https://ape.sena.edu.co', w: 'w-[335px]' },
 ]
 
 // Muesca en flecha hacia la derecha entre bloques
 const notch = 'polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 63%, 6.8% 50%, 0 37%)'
 
 const portales = [
-  { label: ['Molestia referente', 'a PQRS'], icon: '/img/portal-1.png', bg: 'bg-navy', clip: undefined },
-  { label: ['Denuncia por', 'corrupción'], icon: '/img/portal-2.png', bg: 'bg-lima', clip: notch },
-  { label: ['Transparencia'], icon: '/img/portal-3.png', bg: 'bg-cyan', clip: notch },
+  { label: ['Molestia referente', 'a PQRS'], icon: img.portal1, bg: 'bg-navy', clip: undefined },
+  { label: ['Denuncia por', 'corrupción'], icon: img.portal2, bg: 'bg-lima', clip: notch },
+  { label: ['Transparencia'], icon: img.portal3, bg: 'bg-cyan', clip: notch },
 ]
 
 export default function PortalesSection() {
@@ -22,7 +25,7 @@ export default function PortalesSection() {
             <div key={l.alt} className="flex items-center">
               {i > 0 && <span className="hidden lg:block w-[3px] h-[106px] bg-[#7a7a7a] mx-[120px]" />}
               <a href={l.href} target="_blank" rel="noopener noreferrer">
-                <img src={l.img} alt={l.alt} className={`${l.w} max-w-full h-auto`} />
+                <Image src={l.img} alt={l.alt} className={`${l.w} max-w-full h-auto`} />
               </a>
             </div>
           ))}
@@ -40,7 +43,7 @@ export default function PortalesSection() {
             className={`${bg} relative flex flex-col items-center justify-center text-white font-bold text-center text-[clamp(1.4rem,2.2vw,2.6rem)] leading-[1.2] h-[300px] lg:h-[366px] ${i > 0 ? 'md:-ml-[44px]' : ''}`}
             style={clip ? { clipPath: clip } : undefined}
           >
-            <img src={icon} alt="" className="w-[120px] lg:w-[150px] h-auto mb-8" />
+            <Image src={icon} alt="" className="w-[120px] lg:w-[150px] h-auto mb-8" />
             {label.map((t) => (
               <span key={t}>{t}</span>
             ))}

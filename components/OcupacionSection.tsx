@@ -1,6 +1,8 @@
 'use client'
 
+import Image from 'next/image'
 import { Search } from 'lucide-react'
+import { img } from '@/lib/images'
 
 export default function OcupacionSection() {
   return (
@@ -49,8 +51,8 @@ export default function OcupacionSection() {
         </div>
 
         <div className="hidden lg:flex justify-end xl:pr-[150px]">
-          <img
-            src="/img/olo-logo-grande.png"
+          <Image
+            src={img.oloLogoGrande}
             alt="Observatorio Laboral y Ocupacional"
             className="w-[300px] h-auto"
           />

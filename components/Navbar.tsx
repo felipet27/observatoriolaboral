@@ -1,7 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
 import { Menu, X, ChevronDown, Search } from 'lucide-react'
+import { img } from '@/lib/images'
 
 const navLinks = [
   { label: 'Inicio', href: '#inicio' },
@@ -13,21 +15,79 @@ const navLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [compact, setCompact] = useState(false)
+  const [active, setActive] = useState('#inicio')
+  const navRef = useRef<HTMLElement>(null)
+
+  // Menú compacto al bajar
+  useEffect(() => {
+    const onScroll = () => setCompact(window.scrollY > 60)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  // Resalta la sección visible
+  useEffect(() => {
+    const sections = navLinks
+      .map((l) => document.querySelector<HTMLElement>(l.href))
+      .filter((el): el is HTMLElement => el !== null)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(`#${e.target.id}`)
+        })
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    )
+    sections.forEach((s) => observer.observe(s))
+    return () => observer.disconnect()
+  }, [])
+
+  // Cierra el menú móvil con Esc o al tocar fuera
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    const onClick = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('keydown', onKey)
+    document.addEventListener('mousedown', onClick)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.removeEventListener('mousedown', onClick)
+    }
+  }, [open])
+
+  // En la vista inicial no se resalta nada, igual que en el diseño
+  const current = compact ? active : ''
 
   return (
-    <header id="inicio">
+    <>
       {/* Barra gov.co */}
       <div className="bg-gov h-10 flex items-center justify-center border-b border-white/30">
-        <img src="/img/gov-co.png" alt="gov.co" className="h-7 w-auto" />
+        <Image src={img.govCo} alt="gov.co" className="h-7 w-auto" priority />
       </div>
 
-      <nav className="bg-navy">
-        <div className="max-w-olo mx-auto px-4 lg:px-10 h-[100px] lg:h-[120px] flex items-center justify-between gap-6">
-          <a href="#inicio" className="shrink-0">
-            <img
-              src="/img/logos-nav.png"
+      <nav
+        ref={navRef}
+        aria-label="Principal"
+        // Al compactarse, el margen compensa la altura perdida para que el contenido no salte
+        className={`sticky top-0 z-50 bg-navy transition-[margin,box-shadow] duration-300 ${
+          compact ? 'mb-[28px] lg:mb-[36px] shadow-lg shadow-black/30' : ''
+        }`}
+      >
+        <div
+          className={`max-w-olo mx-auto px-4 lg:px-10 flex items-center justify-between gap-6 transition-[height] duration-300 ${
+            compact ? 'h-[72px] lg:h-[84px]' : 'h-[100px] lg:h-[120px]'
+          }`}
+        >
+          <a href="#inicio" className="shrink-0" aria-label="Ir al inicio">
+            <Image
+              src={img.logosNav}
               alt="SENA - Observatorio Laboral y Ocupacional"
-              className="h-14 lg:h-[84px] w-auto"
+              className={`w-auto transition-[height] duration-300 ${compact ? 'h-11 lg:h-[60px]' : 'h-14 lg:h-[84px]'}`}
+              priority
             />
           </a>
 
@@ -36,10 +96,13 @@ export default function Navbar() {
               <li key={l.label}>
                 <a
                   href={l.href}
-                  className="flex items-center gap-1 text-cyan text-[1.15rem] 2xl:text-[1.45rem] font-semibold hover:text-white transition-colors"
+                  aria-current={current === l.href ? 'true' : undefined}
+                  className={`relative flex items-center gap-1 text-[1.15rem] 2xl:text-[1.45rem] font-semibold transition-colors after:absolute after:left-0 after:-bottom-1.5 after:h-[3px] after:rounded-full after:bg-lima after:transition-all after:duration-300 ${
+                    current === l.href ? 'text-white after:w-full' : 'text-cyan hover:text-white after:w-0'
+                  }`}
                 >
                   {l.label}
-                  {l.dropdown && <ChevronDown size={18} strokeWidth={3} />}
+                  {l.dropdown && <ChevronDown size={18} strokeWidth={3} aria-hidden />}
                 </a>
               </li>
             ))}
@@ -63,20 +126,28 @@ export default function Navbar() {
           <button
             className="xl:hidden text-cyan"
             onClick={() => setOpen(!open)}
-            aria-label="Abrir menú"
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={open}
+            aria-controls="menu-movil"
           >
             {open ? <X size={30} /> : <Menu size={30} />}
           </button>
         </div>
 
         {open && (
-          <div className="xl:hidden bg-navy border-t border-white/10 px-4 pb-6">
+          <div
+            id="menu-movil"
+            className="xl:hidden absolute inset-x-0 top-full bg-navy border-t border-white/10 px-4 pb-6 shadow-lg shadow-black/30 max-h-[calc(100vh-72px)] overflow-y-auto"
+          >
             {navLinks.map((l) => (
               <a
                 key={l.label}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="block py-3 text-cyan text-lg font-semibold border-b border-white/10"
+                aria-current={current === l.href ? 'true' : undefined}
+                className={`block py-3 text-lg font-semibold border-b border-white/10 ${
+                  current === l.href ? 'text-white' : 'text-cyan'
+                }`}
               >
                 {l.label}
               </a>
@@ -90,6 +161,6 @@ export default function Navbar() {
           </div>
         )}
       </nav>
-    </header>
+    </>
   )
 }
