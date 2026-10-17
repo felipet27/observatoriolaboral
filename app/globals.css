@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Work Sans', system-ui, sans-serif;
+  background-color: #ffffff;
+  color: #001145;
+  overflow-x: hidden;
+}
+
+/* Fondo de papel texturizado */
+.bg-papel-textura {
+  background-color: #f4f4f2;
+  background-image: url('/img/textura-papel.jpg');
+  background-size: 520px 260px;
+}
+
+/* Fondo azul texturizado */
+.bg-azul-textura {
+  background-color: #001e7f;
+  background-image: url('/img/textura-azul.jpg');
+  background-size: 720px 600px;
+}
+
+/* Versión estática (sin contornos solapados) para los títulos contorneados */
+@font-face {
+  font-family: 'Work Sans Contorno';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('/fonts/WorkSans-ExtraBold-contorno.woff2') format('woff2');
+}
+
+/* Texto contorneado (OBSERVA, SERVICIOS, DATOS OLO) */
+.texto-contorno {
+  font-family: 'Work Sans Contorno', 'Work Sans', sans-serif;
+  color: transparent;
+  -webkit-text-stroke: 1.5px #001145;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+@media (min-width: 1024px) {
+  .texto-contorno {
+    -webkit-text-stroke-width: 2.5px;
+  }
+}
+
+/* "ocupación?" con contorno desplazado */
+.texto-ocupacion {
+  color: #001145;
+  text-shadow: -3px -3px 0 #ffffff, -5px -5px 0 #001145;
+}
+
+/* Carrusel */
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* Permite tamaños relativos al ancho de la tarjeta (cqw) */
+.cq {
+  container-type: inline-size;
+}
